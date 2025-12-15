@@ -12,9 +12,6 @@ public class SmallestNumInArray {
              
         }
         System.out.println(small);
-        System.out.println(Integer.MAX_VALUE);
-
-
 
 
     }
