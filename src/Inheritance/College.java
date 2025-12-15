@@ -10,6 +10,7 @@ public class College {
 
         int num[] = new int[11];
 
+        System.out.println("Enter 10 numbers : ");
 
         for (int i = 0; i < num.length ; i++) {
 
