@@ -1,0 +1,777 @@
+Index: src/Inheritance/College.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Inheritance/College.java b/src/Inheritance/College.java
+--- a/src/Inheritance/College.java
++++ b/src/Inheritance/College.java
+@@ -10,7 +10,6 @@
+ 
+         int num[] = new int[11];
+ 
+-        System.out.println("Enter 10 numbers : ");
+ 
+         for (int i = 0; i < num.length ; i++) {
+ 
+Index: src/LambdaExpression/Main.java
+===================================================================
+diff --git a/src/LambdaExpression/Main.java b/src/LambdaExpression/Main.java
+new file mode 100644
+--- /dev/null
++++ b/src/LambdaExpression/Main.java
+@@ -0,0 +1,13 @@
++package LambdaExpression;
++
++/*
++In this interface we will write main method inside interface
++conclusion : We can write main method in Java interfaces because it is Static method.
++             From Java 1.8 version we are able to write static methods inside the interfaces.
++ */
++
++public interface Main {
++    public static void main(String[] args) {
++        System.out.println("Hello from interface");
++    }
++}
+Index: src/LambdaExpression/Child.java
+===================================================================
+diff --git a/src/LambdaExpression/Child.java b/src/LambdaExpression/Child.java
+new file mode 100644
+--- /dev/null
++++ b/src/LambdaExpression/Child.java
+@@ -0,0 +1,24 @@
++package LambdaExpression;
++
++/*
++-So what we understand here is If the Parent Interface is Functional Interface then
++ Child interface who is extending Parent interface will automatically becomes Functional interface even if it is empty.
++-But if we try to add abstract method in Child interface then it will show error and Child interface will not be
++ Functional interface anymore.
++-Again if we try to write the same method as written in Parent class then it is accepted and child intefrace will be Functional interface.
++-And Child interface can have any number of Default and Static method to stay Functional Interface.
++
++*/
++
++
++//@FunctionalInterface
++public interface Child extends Parent{
++
++
++
++
++
++
++
++
++}
+Index: src/LambdaExpression/Parent.java
+===================================================================
+diff --git a/src/LambdaExpression/Parent.java b/src/LambdaExpression/Parent.java
+new file mode 100644
+--- /dev/null
++++ b/src/LambdaExpression/Parent.java
+@@ -0,0 +1,13 @@
++package LambdaExpression;
++
++/*
++So what we understand here is If the Parent Interface is Functional Interface then
++Child interface who is extending Parent interface will automatically becomes Functional interface even if it is empty.
++ */
++
++public interface Parent {
++
++    default int add(int a, int b){
++        return a + b;
++    }
++}
+Index: src/LambdaExpression/LamdaEx.java
+===================================================================
+diff --git a/src/LambdaExpression/LamdaEx.java b/src/LambdaExpression/LamdaEx.java
+new file mode 100644
+--- /dev/null
++++ b/src/LambdaExpression/LamdaEx.java
+@@ -0,0 +1,48 @@
++package LambdaExpression;
++
++public class LamdaEx{
++
++    /*
++
++    Lambda expression is an anonymous function
++    -> It can be only used with functional interface
++    Why ? : --> Because Functional INterface has only one abstract method and to provide its implementation we can use lambda expression.
++            --> If there are multiple abstract method in interface then it will not be called functional inerface, and since we are writing lambda expression
++                compiler will get confused that which methods implementation is written by the help of lambda expression.
++
++    Now Functional Interface means what :
++    Before java 1.8 , only public abstract methods were allowed in interface.
++    but after Java 1.8 In interface any number Default and Static methods are allowed.
++
++    Functional Interface :
++    - Interface having exactly single abstract method but can have any number of defaults and static method.
++    - We can invoke lambda expression by using functional interface.
++
++
++    i.e.
++    ->Not having any name
++    ->Not having any return type
++    ->Not having any access modifier
++
++    Steps to make any function lamda expression
++    1. Remove modifier
++    2. Remove return type
++    3. Remove method name
++    4. Place arrow
++    */
++
++    public static void main(String[] args) {
++        
++        MyInterface m = ()->"Hello from Lambda expression..."; //lambda expression is written by storing it into local variable created Functional interface's type.
++
++        System.out.println(m.sayHello());    // called here...
++
++         
++
++
++
++
++    }
++
++}
++
+Index: src/LambdaExpression/MyClass.java
+===================================================================
+diff --git a/src/LambdaExpression/MyClass.java b/src/LambdaExpression/MyClass.java
+new file mode 100644
+--- /dev/null
++++ b/src/LambdaExpression/MyClass.java
+@@ -0,0 +1,50 @@
++package LambdaExpression;
++
++/*
++Here we want to check the ways to call the static and default methods from MyInterface
++- To check if we want to call then how we can call them / do we have to override them ?
++
++Conclusion :
++Default methods in interface :
++-> Methods which has body in interface and can be called by object of implementing class.
++-> Can be overridden and called by the object of the Implementing class i.e. Child Class.
++
++Static methods in interface :
++-> These methods can not be overridden in implemented class means in child classes.Because it is not visible in Implemented class
++-> these methods can only be called by interface name.
++
++ */
++
++public class MyClass implements MyInterface{
++
++    @Override
++    public String sayHello() {
++        System.out.println("Implemented in My Class...");
++        return null;
++    }
++
++    @Override
++    public void sayGoodMorning() {
++        System.out.println(" Overridden by MyClass to Print : Good Morning");
++    }
++
++
++
++    public static void main(String[] args) {
++        MyClass m = new MyClass();
++        m.sayGoodMorning(); // This is default method from MyInterface interface and it is called by creaing object of child class who is implementing MyInterface.
++        m.sayHello();
++
++        /* But here we can see we are only able to call the default and abstract methods with the object
++           and if we have to call the static methods we cannot call them using object.
++           The Only way to call static method is by interface name as shown below.
++         */
++
++        MyInterface.sayGoodEvening();  //This is static method and can be only called by interface name.
++
++
++    }
++
++
++
++}
+Index: src/LambdaExpression/MyInterface.java
+===================================================================
+diff --git a/src/LambdaExpression/MyInterface.java b/src/LambdaExpression/MyInterface.java
+new file mode 100644
+--- /dev/null
++++ b/src/LambdaExpression/MyInterface.java
+@@ -0,0 +1,47 @@
++package LambdaExpression;
++
++/*
++Now Functional Interface means what :
++    Before java 1.8, only public abstract methods were allowed in interface.
++    but after Java 1.8, in interface any number Default and Static methods are allowed.
++
++    Functional Interface :
++    - Interface having exactly single abstract method but can have any number of defaults and static method.
++    - We can invoke lambda expression by using functional interface.
++    - It is must that Functional Interface should have Single Abstract Method in it.
++    - So, an empty interface can also not called Functional interface.
++
++Need for @FunctionalInterface :
++-> if we don't use this annotation on interface then also it is fine.
++-> But if we did not use this and someone other than you came and add another abstract method then it willnot be Functional interface any more
++   and all other functionalities depending upon it will throw error
++-> And if it is used then It is not possible to add another abstract method and still if added then it will show an error indicating that Functional interface
++   can have only single abstract method and any number of default and static methods.
++
++In simple words :
++Advntages of @FunctionalInterface annotation
++- It restricts the interface to be a functional interface.
++- So if people have already used some lambda expression and some new
++  team member added another abstact methoda in interface, All lambda expression will have errors.
++
++
++ */
++
++@FunctionalInterface
++public interface MyInterface {
++
++    public String sayHello(); //Single abstract method, so it can be called functional interface
++
++    //public void sayBye(); // This second abstract method is added in this interface then it can not be called functional interface.
++
++    //We can add any number of default and static methods in functional interface.
++
++    default void sayGoodMorning(){
++        System.out.println("Good Morning From My Interface");
++    }
++
++    static void sayGoodEvening(){
++        System.out.println("Good Evening From My Interface");
++    }
++
++}
+Index: src/Multithreading/ThreadEx.java
+===================================================================
+diff --git a/src/Multithreading/ThreadEx.java b/src/Multithreading/ThreadEx.java
+new file mode 100644
+--- /dev/null
++++ b/src/Multithreading/ThreadEx.java
+@@ -0,0 +1,64 @@
++package Multithreading;
++
++/*
++*************** t1.start(); ***************
++
++🔹 Meaning:
++Starts a new thread of execution.
++JVM creates a separate call stack for this thread.
++It calls the run() method in a new thread.
++
++🔹 Outcome:
++run() executes asynchronously.
++Main thread and t1 thread run in parallel.
++Thread.currentThread().getName() inside run() will return something like Thread-0.
++
++Output :
++Thread State : NEW
++Thread State : RUNNABLE
++main
++this is Thread 1
++Thread-0
++
++*
++*
++*************** t1.run(); ****************
++🔹 Meaning:
++This just calls the run() method like a normal method call, NOT as a thread.
++Executes on the same (main) thread — no new thread is created.
++
++🔹 Outcome:
++No multithreading.
++Thread.currentThread().getName() inside run() will return main.
++
++Output :
++Thread State : NEW
++this is Thread 1
++main
++Thread State : NEW
++main
++
++*/
++public class ThreadEx extends Thread {
++
++    @Override
++    public void run() {
++        System.out.println("this is Thread 1");
++        System.out.println(Thread.currentThread().getName());
++    }
++
++    public static void main(String[] args) throws InterruptedException {
++
++        ThreadEx t1 = new ThreadEx();
++        System.out.println("Thread State : "+t1.getState());
++        //t1.start();
++        t1.run();
++       //Thread.sleep(5000);
++        System.out.println("Thread State : "+t1.getState());
++
++        System.out.println(Thread.currentThread().getName());
++
++
++
++    }
++}
+Index: src/NsquareXpertsCompanyCodingQuestions/ArnoldsNumber.java
+===================================================================
+diff --git a/src/NsquareXpertsCompanyCodingQuestions/ArnoldsNumber.java b/src/NsquareXpertsCompanyCodingQuestions/ArnoldsNumber.java
+new file mode 100644
+--- /dev/null
++++ b/src/NsquareXpertsCompanyCodingQuestions/ArnoldsNumber.java
+@@ -0,0 +1,41 @@
++package NsquareXpertsCompanyCodingQuestions;
++
++// Q. Check if number is Arnold's number or not ?
++// Ans : Answer was modified to do advance solutoin i.e. arnolds number from 10-1000000000. remove for loop from line 14 and assign user accepted value to originalNumber.
++
++import java.util.Scanner;
++
++public class ArnoldsNumber {
++
++    public static void main(String[] args) {
++
++        Scanner sc = new Scanner(System.in);
++//        System.out.println("Enter a number : ");
++        for (int i = 10; i < 1000000000; i++) {
++            int originalNumber = i;
++            int tempNumber = originalNumber , remainder = 0 , result = 0, digits=0;
++
++            while (tempNumber!=0){
++                tempNumber= tempNumber/10;
++                digits++;
++            }
++            tempNumber = originalNumber;
++
++            while (tempNumber != 0){
++
++                remainder = tempNumber % 10;
++                result = (int) (result + Math.pow(remainder,digits));
++                tempNumber = tempNumber / 10;
++            }
++
++            if (result == originalNumber){
++//                System.out.println("Its arnold's number...");
++                System.out.println(result);
++            }
++//            else /
++        }
++
++        }
++
++
++}
+Index: src/NsquareXpertsCompanyCodingQuestions/StringPalindrome.java
+===================================================================
+diff --git a/src/NsquareXpertsCompanyCodingQuestions/StringPalindrome.java b/src/NsquareXpertsCompanyCodingQuestions/StringPalindrome.java
+new file mode 100644
+--- /dev/null
++++ b/src/NsquareXpertsCompanyCodingQuestions/StringPalindrome.java
+@@ -0,0 +1,32 @@
++package NsquareXpertsCompanyCodingQuestions;
++
++// Q. Write a program ro check a string is palindrome or not...(Use dynamic inputs)
++// Ans :
++import java.util.Scanner;
++
++public class StringPalindrome {
++
++    public static void main(String[] args) {
++
++        Scanner sc = new Scanner(System.in);
++
++        System.out.println("Enter a String : ");
++        String str = sc.next();
++        String rev = "";
++
++        for (int i = 0; i <str.length() ; i++) {
++            rev =  str.charAt(i) + rev ;
++        }
++
++        System.out.println(rev);
++        if(str.equalsIgnoreCase(rev)){
++            // here we have used .equals() method instead of "==" this operator Becoz == : this compares the reference of object
++            // and .equals() method : compres the content of String.
++
++            System.out.println("The entered String "+str+" after reversing is "+rev+" \n So the string is Palindrome String...");
++        }
++
++        else System.out.println("Not a Palindrome String...");
++
++    }
++}
+Index: src/NsquareXpertsCompanyCodingQuestions/ArrayAverage.java
+===================================================================
+diff --git a/src/NsquareXpertsCompanyCodingQuestions/ArrayAverage.java b/src/NsquareXpertsCompanyCodingQuestions/ArrayAverage.java
+new file mode 100644
+--- /dev/null
++++ b/src/NsquareXpertsCompanyCodingQuestions/ArrayAverage.java
+@@ -0,0 +1,53 @@
++package NsquareXpertsCompanyCodingQuestions;
++
++import java.util.Scanner;
++
++public class ArrayAverage {
++
++        public static void main(String[] args) {
++            Scanner sc = new Scanner(System.in);
++
++            // Step 1: Input array
++            System.out.print("Enter number of elements: ");
++            int n = sc.nextInt();
++
++            int[] arr = new int[n];
++            System.out.println("Enter " + n + " array elements:");
++            for (int i = 0; i < n; i++) {
++                arr[i] = sc.nextInt();
++            }
++
++            // Step 2: Calculate sum and average
++            double sum = 0;
++            for (int i = 0; i < n; i++) {
++                sum += arr[i];
++            }
++            double avg = sum / n;
++            System.out.println("Average: " + avg);
++
++            // Step 3: Count elements greater than average
++            int count = 0;
++            for (int i = 0; i < n; i++) {
++                if (arr[i] > avg) {
++                    count++;
++                    
++                }
++            }
++
++            // Step 4: Create new array to store elements greater than average
++            int[] greater = new int[count];
++            int j = 0;
++            for (int i = 0; i < n; i++) {
++                if (arr[i] > avg) {
++                    greater[j] = arr[i];
++                    j++;
++                }
++            }
++
++            // Step 5: Print the new array
++            System.out.println("Elements greater than average:");
++            for (int i = 0; i < greater.length; i++) {
++                System.out.print(greater[i] + " ");
++            }
++        }
++}
+Index: src/SmallestNumInArray.java
+===================================================================
+diff --git a/src/SmallestNumInArray.java b/src/SmallestNumInArray.java
+new file mode 100644
+--- /dev/null
++++ b/src/SmallestNumInArray.java
+@@ -0,0 +1,21 @@
++public class SmallestNumInArray {
++
++    public static void main(String[] args) {
++        int num [] = {13,23,5,6,7,85,43,234};
++        int small = num[0];
++
++        for (int i = 0; i <num.length ; i++) {
++
++            if(small>num[i]){
++                small = num[i];
++            }
++             
++        }
++        System.out.println(small);
++        System.out.println(Integer.MAX_VALUE);
++
++
++
++
++    }
++}
+Index: src/AvgOfArray.java
+===================================================================
+diff --git a/src/AvgOfArray.java b/src/AvgOfArray.java
+new file mode 100644
+--- /dev/null
++++ b/src/AvgOfArray.java
+@@ -0,0 +1,16 @@
++public class AvgOfArray {
++    public static void main(String[] args) {
++
++        int num [] = {13,23,5,6,7,85,43,234};
++        int sum = 0;
++        int avg = 0;
++
++        for (int i = 0; i < num.length ; i++) {
++            sum = sum + num[i];
++        }
++
++        avg = sum / num.length;
++
++        System.out.println("Average Of An Array is : "+avg +"\nSum is : "+sum);
++    }
++}
+Index: src/CountWords.java
+===================================================================
+diff --git a/src/CountWords.java b/src/CountWords.java
+new file mode 100644
+--- /dev/null
++++ b/src/CountWords.java
+@@ -0,0 +1,20 @@
++import java.util.Scanner;
++
++public class CountWords {
++
++    public static void main(String[] args) {
++        Scanner sc = new Scanner(System.in);
++        System.out.println("Enter any String : ");
++        String input = sc.nextLine();
++
++        String Words [] = input.split("\\s");
++//
++        int count = Words.length;
++//
++//        System.out.println(count);
++
++        System.out.println("Detected String : "+input+ " with count of "+count+" words");
++
++
++    }
++}
+Index: src/StringReverse.java
+===================================================================
+diff --git a/src/StringReverse.java b/src/StringReverse.java
+new file mode 100644
+--- /dev/null
++++ b/src/StringReverse.java
+@@ -0,0 +1,28 @@
++import java.util.Scanner;
++
++public class StringReverse {
++    public static void main(String[] args) {
++        Scanner sc = new Scanner(System.in);
++        System.out.println("Enter any String : ");
++        String input = sc.nextLine();
++        String reverse="";
++
++        try{
++            for (int i = 0 ; i<=input.length(); i++) {
++
++                //System.out.println(i+" = "+input.charAt(i)); // To check the usage of charAt() method
++                reverse = input.charAt(i) + reverse;
++            }
++        }
++        catch (Exception e) {
++            System.out.println("Exception Occured : "+e.getMessage());
++        }
++
++        finally {
++            System.out.println("Reversed String : "+reverse);
++        }
++
++
++    }
++}
++
+Index: src/starPatterns/StarPattern1.java
+===================================================================
+diff --git a/src/starPatterns/StarPattern1.java b/src/starPatterns/StarPattern1.java
+new file mode 100644
+--- /dev/null
++++ b/src/starPatterns/StarPattern1.java
+@@ -0,0 +1,56 @@
++package starPatterns;
++
++public class StarPattern1 {
++
++    public static void main(String[] args) {
++
++        starPattern2();
++
++    }
++
++    
++
++//    To Print Star Pattern 1 :
++//     *
++//     **
++//     ***
++//     ****
++//     *****
++    static void starPattern(){
++        for (int i = 0; i < 5; i++) {
++            for (int j = 0; j <= i ; j++) {
++                System.out.print("*");
++            }
++            System.out.println();
++        }
++    }
++
++    /*
++    |1234*****
++    |123*****
++    |12*****
++    |1*****
++    |*****
++     *
++     */
++
++    static void starPattern2(){
++        int num = 9, space = 4;
++        for (int row = 0; row <5; row++) {
++            for (int col = 0; col <=num ; col++) {
++                if(col>space){
++                    System.out.print("*");
++                }
++                else{
++                    System.out.print(" ");
++                }
++            }
++            System.out.println();
++            num--;
++            space--;
++        }
++        
++    }
++
++
++}
+Index: src/starPatterns/ArrayPractice.java
+===================================================================
+diff --git a/src/starPatterns/ArrayPractice.java b/src/starPatterns/ArrayPractice.java
+new file mode 100644
+--- /dev/null
++++ b/src/starPatterns/ArrayPractice.java
+@@ -0,0 +1,27 @@
++package starPatterns;
++
++import java.util.Arrays;
++
++public class ArrayPractice {
++    public static void main(String[] args) {
++        int [] arr = {1,2,3,4,5};
++//        System.out.println("Before using myCode method : "+ Arrays.toString(arr));
++        myCode(arr);
++
++    }
++
++    static void myCode(int[] array){
++        int firstIndex = array[0];
++        int lastIndex = array[array.length - 1];
++        int temp = firstIndex;
++        firstIndex = lastIndex;
++        lastIndex = temp;
++
++        array[0] = firstIndex;
++        array[array.length - 1] = lastIndex;
++
++
++        System.out.println(Arrays.toString(array));
++
++    }
++}
+\ No newline at end of file
+Index: src/CollectionEx/Ex1.java
+===================================================================
+diff --git a/src/CollectionEx/Ex1.java b/src/CollectionEx/Ex1.java
+new file mode 100644
+--- /dev/null
++++ b/src/CollectionEx/Ex1.java
+@@ -0,0 +1,5 @@
++package CollectionEx;
++
++public class Ex1 {
++
++}
+Index: src/BrainStorm/ReverseString.java
+===================================================================
+diff --git a/src/BrainStorm/ReverseString.java b/src/BrainStorm/ReverseString.java
+new file mode 100644
+--- /dev/null
++++ b/src/BrainStorm/ReverseString.java
+@@ -0,0 +1,28 @@
++package BrainStorm;
++
++public class ReverseString {
++
++    public static void main(String[] args) {
++
++        String str = " is sky   the blue ";
++        char ch [] = new char[str.length()];
++        ch = str.toCharArray();
++
++
++        String res = "";
++
++        String trim = str.trim(); // only removes the starting and ending spaces of the string...
++        System.out.println(trim);
++
++        for (int i = 0; i < str.length(); i++) {
++
++
++//            System.out.print(charr);
++        }
++        System.out.println(res);
++
++
++
++    }
++
++}
+Index: src/Codidtas/CountingOccurences.java
+===================================================================
+diff --git a/src/Codidtas/CountingOccurences.java b/src/Codidtas/CountingOccurences.java
+new file mode 100644
+--- /dev/null
++++ b/src/Codidtas/CountingOccurences.java
+@@ -0,0 +1,19 @@
++package Codidtas;
++
++public class CountingOccurences {
++    static int countOccurence(String text, char ch){
++        int count=0;
++//        text = text.toLowerCase();
++        for (int i = 0; i < text.length() ; i++) {
++//            System.out.println("*");
++            if(text.charAt(i)==ch)
++                count++;
++        }
++        return count;
++    }
++    public static void main(String[] args) {
++        String str = "Aditya";
++        System.out.println(countOccurence(str,'a'));
++        System.out.println(countOccurence("Aditya",'a'));
++    }
++}
+Index: src/Codidtas/PositionsOfAlphabet.java
+===================================================================
+diff --git a/src/Codidtas/PositionsOfAlphabet.java b/src/Codidtas/PositionsOfAlphabet.java
+new file mode 100644
+--- /dev/null
++++ b/src/Codidtas/PositionsOfAlphabet.java
+@@ -0,0 +1,11 @@
++package Codidtas;
++
++public class PositionsOfAlphabet {
++
++    public static void main(String[] args) {
++
++        String str = "Aditya";
++        
++
++    }
++}
+diff --git a/src/LamdaEx.java b/src/LamdaEx.java
+deleted file mode 100644
+diff --git a/src/LambdaExpression/a.txt b/src/LambdaExpression/a.txt
+new file mode 100644
